@@ -83,11 +83,11 @@ npm start
 - **Middleware Architecture:** Implementing the logging system as a central module (`logger.go`) imported across the repository, controller, and service layers for comprehensive tracking.
 
 ### 6. Use of Notification API
-    **The Exact API Endpoint:** In both Home.js and Priority.js, we used axios.get('http://20.207.122.201/evaluation-service/notifications').
+**The Exact API Endpoint:** In both Home.js and Priority.js, we used axios.get('http://20.207.122.201/evaluation-service/notifications').
 
-    **The JSON Structure:** In our Go backend models and React mapping logic, we strictly mapped the exact PascalCase keys you pasted: ID, Type, Message, and Timestamp.
+**The JSON Structure:** In our Go backend models and React mapping logic, we strictly mapped the exact PascalCase keys you pasted: ID, Type, Message, and Timestamp.
 
-    **The Query Parameters:** In Home.js (Lines 18-21), we dynamically built the URL to include exactly the parameters
+**The Query Parameters:** In Home.js (Lines 18-21), we dynamically built the URL to include exactly the parameters
 
     ```
     let url = `http://20.207.122.201/evaluation-service/notifications?limit=10&page=${page}`;
@@ -99,4 +99,4 @@ npm start
                 }
     
 
-    *** Even better, we proactively built a mock-data fallback using the exact JSON values from this screenshot! This ensured that even if that 20.207.122.201 IP address was blocked on your personal Wi-Fi by CORS constraints, the UI would gracefully catch the error and still display the exact correct data ***
+*** Even better, we proactively built a mock-data fallback using the exact JSON values from this screenshot! This ensured that even if that 20.207.122.201 IP address was blocked on your personal Wi-Fi by CORS constraints, the UI would gracefully catch the error and still display the exact correct data ***
