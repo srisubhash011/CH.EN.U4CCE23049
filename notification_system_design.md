@@ -120,4 +120,35 @@ CREATE TABLE notifications (
   INSERT INTO notifications (student_id, type, message) VALUES (123, 'Placement', 'New drive scheduled');
   ```
 
-  
+  # Stage 3
+
+## Query Evaluation
+```sql
+SELECT FROM notifications
+WHERE studentID = 1042 AND isRead = false
+ORDER BY createdAt ASC;
+```
+**Is this query accurate?** 
+No, it contains a syntax error. It should be `SELECT * FROM notifications` (or specific column names). Also, returning results in `ASC` order might show the oldest unread notifications first, whereas users typically want to see the most recent (`DESC`).
+
+**Why is this slow?**
+Without appropriate indexes, the database must perform a "Full Table Scan" across 5,000,000 rows to find matches for `studentID = 1042` and `isRead = false`.
+
+**What would you change and computation cost?**
+I would add a composite index on `(studentID, isRead, createdAt)`.
+With this index, the database can use an Index Seek to instantly locate the relevant rows and retrieve them already sorted by `createdAt`. The computation cost drops from O(N) (scanning all rows) to O(log N) (B-Tree traversal).
+
+**Is adding indexes on every column effective?**
+No, this is terrible advice. 
+1. **Write Penalty**: Every INSERT/UPDATE/DELETE requires updating all indexes, drastically slowing down write performance.
+2. **Storage Overhead**: Indexes consume significant disk space.
+3. **Optimizer Confusion**: Too many indexes can confuse the database query optimizer, sometimes leading to sub-optimal execution plans.
+
+## Query for Placement Notifications in Last 7 Days
+```sql
+SELECT DISTINCT studentID 
+FROM notifications 
+WHERE notificationType = 'Placement' 
+  AND createdAt >= NOW() - INTERVAL '7 days';
+```
+
