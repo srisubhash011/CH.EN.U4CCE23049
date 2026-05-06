@@ -152,3 +152,27 @@ WHERE notificationType = 'Placement'
   AND createdAt >= NOW() - INTERVAL '7 days';
 ```
 
+# Stage 6
+
+## Approach for Priority Inbox
+To implement the Priority Inbox (Top N), we need to sort incoming notifications based on a custom scoring algorithm considering both **weight** and **recency**.
+
+**Weights:**
+- Placement = 3
+- Result = 2
+- Event = 1
+
+**Recency:**
+- A more recent notification should score higher than an older one of the same weight. 
+- However, a brand new 'Event' should not outweigh a 1-day old 'Placement'. We can assign a recency score based on the timestamp and combine it with the weight.
+
+**Maintaining Top 10 Efficiently:**
+We can use a **Min-Heap (Priority Queue)** of size `n` (e.g., 10). 
+As new notifications arrive:
+1. Calculate the score of the incoming notification.
+2. If the heap has less than 10 items, insert it.
+3. If it has 10 items, compare the score with the minimum score in the heap (the root).
+4. If the new score is higher, remove the root and insert the new notification.
+This keeps operations at `O(log K)` where K is the size of the top 'n' list, making it extremely efficient even for streams of thousands of notifications.
+
+*Code implementation for this logic is located in the backend service codebase.*
