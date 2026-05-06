@@ -2,21 +2,21 @@
 
 This repository contains the complete full-stack implementation for the Affordmed Notification Platform assessment. The solution includes the API design, database schema, algorithmic optimizations, a Go-based backend, and a responsive React frontend.
 
-## 🚀 Features Implemented
+## Features Implemented
 - **All Notifications Dashboard:** Fetches and paginates notifications from the external evaluation API.
 - **Priority Inbox:** An algorithmic feature that calculates priority based on a combination of **Weight** (Placement > Result > Event) and **Recency**, utilizing a Min-Heap data structure to efficiently extract the Top 'N' notifications.
 - **Read/Unread Tracking:** Frontend tracking of viewed notifications using visual cues (background color, borders, and "New" badges) persisted via `localStorage`.
 - **Filtering:** Dropdown filtering by notification type.
 - **Custom Logging:** Extensive backend logging via a custom middleware implementation, strictly avoiding standard console logging as per requirements.
 
-## 🛠 Tech Stack
+## Tech Stack
 - **Backend:** Go (Golang)
 - **Frontend:** React, React Router, Axios
 - **Styling:** Material UI (MUI)
 
 ---
 
-## 🏃‍♂️ How to Run the Project
+##  How to Run the Project
 
 ### 1. Start the Go Backend
 The backend serves the priority logic and custom logging.
@@ -37,12 +37,12 @@ npm start
 
 ---
 
-## 📸 Proof of Implementation & Screenshots
+## Proof of Implementation & Screenshots
 
 *(Evaluator note: The screenshots below demonstrate the fully functional application across different views and states.)*
 
 ### 1. Desktop View - All Notifications
-![alt text](image-3.png)
+![alt text](images\image-3.png)
 
 **What this demonstrates:**
 - **Full API Integration:** Successfully fetching JSON arrays from the provided Affordmed Evaluation API.
@@ -52,21 +52,21 @@ npm start
 - **Pagination:** Displaying a working pagination component to limit data payload and enhance performance.
 
 ### 2. Mobile View - Responsive UI
-![alt text](image-2.png)
+![alt text](images\image-2.png)
 
 **What this demonstrates:**
 - **Responsiveness:** Ensuring the application adjusts fluidly to mobile screen sizes without horizontal scrolling or overlap.
 - **Production Readiness:** Utilizing Material UI's `Container` and flexbox properties to maintain a clean layout on smaller devices, adhering to best UI/UX practices.
 
 ### 3. Type Filtering Functionality
-![alt text](image-4.png)![alt text](image-5.png)![alt text](image-6.png)
+![alt text](images\image-4.png)![alt text](images\image-5.png)![alt text](images\image-6.png)
 
 **What this demonstrates:**
 - **Query Parameter Handling:** Successfully utilizing the `notification_type` query parameter provided by the expanded API.
 - **Dynamic Re-rendering:** Reacting to dropdown changes to automatically trigger API re-fetches and update the dashboard in real-time.
 
 ### 4. Priority Inbox (Top N Algorithm)
-![alt text](image-7.png)
+![alt text](images\image-7.png)
 
 **What this demonstrates:**
 - **Algorithmic Sorting:** Effectively sorting notifications using the complex metric defined in Stage 6 (Weight + Recency).
@@ -75,7 +75,7 @@ npm start
 - **User Choice ('n' limit):** Providing an active input field for the user to dynamically adjust the Top "n" notifications they wish to see, directly altering the displayed array size.
 
 ### 5. Backend Custom Logger Output
-images\image-1.png
+![alt text](images\image-1.png)
 
 **What this demonstrates:**
 - **Rule Compliance:** Strictly adhering to the mandate to avoid inbuilt `fmt.Println` or standard console logging methods.
