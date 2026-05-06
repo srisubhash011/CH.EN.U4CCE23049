@@ -42,7 +42,7 @@ npm start
 *(Evaluator note: The screenshots below demonstrate the fully functional application across different views and states.)*
 
 ### 1. Desktop View - All Notifications
-![alt text](images\image-3.png)
+![alt text](images/image-3.png)
 
 **What this demonstrates:**
 - **Full API Integration:** Successfully fetching JSON arrays from the provided Affordmed Evaluation API.
@@ -52,21 +52,21 @@ npm start
 - **Pagination:** Displaying a working pagination component to limit data payload and enhance performance.
 
 ### 2. Mobile View - Responsive UI
-![alt text](images\image-2.png)
+![alt text](images/image-2.png)
 
 **What this demonstrates:**
 - **Responsiveness:** Ensuring the application adjusts fluidly to mobile screen sizes without horizontal scrolling or overlap.
 - **Production Readiness:** Utilizing Material UI's `Container` and flexbox properties to maintain a clean layout on smaller devices, adhering to best UI/UX practices.
 
 ### 3. Type Filtering Functionality
-![alt text](images\image-4.png)![alt text](images\image-5.png)![alt text](images\image-6.png)
+![alt text](images/image-4.png)![alt text](images/image-5.png)![alt text](images/image-6.png)
 
 **What this demonstrates:**
 - **Query Parameter Handling:** Successfully utilizing the `notification_type` query parameter provided by the expanded API.
 - **Dynamic Re-rendering:** Reacting to dropdown changes to automatically trigger API re-fetches and update the dashboard in real-time.
 
 ### 4. Priority Inbox (Top N Algorithm)
-![alt text](images\image-7.png)
+![alt text](images/image-7.png)
 
 **What this demonstrates:**
 - **Algorithmic Sorting:** Effectively sorting notifications using the complex metric defined in Stage 6 (Weight + Recency).
@@ -75,7 +75,7 @@ npm start
 - **User Choice ('n' limit):** Providing an active input field for the user to dynamically adjust the Top "n" notifications they wish to see, directly altering the displayed array size.
 
 ### 5. Backend Custom Logger Output
-![alt text](images\image-1.png)
+![alt text](images/image-1.png)
 
 **What this demonstrates:**
 - **Rule Compliance:** Strictly adhering to the mandate to avoid inbuilt `fmt.Println` or standard console logging methods.
@@ -91,9 +91,12 @@ npm start
 
     ```
     let url = `http://20.207.122.201/evaluation-service/notifications?limit=10&page=${page}`;
-if (type) {
-  url += `&notification_type=${type}`;
-}
     ```
+    if (type) {
+    ```
+            url += `&notification_type=${type}`;
+    ```
+                }
+    
 
     *** Even better, we proactively built a mock-data fallback using the exact JSON values from this screenshot! This ensured that even if that 20.207.122.201 IP address was blocked on your personal Wi-Fi by CORS constraints, the UI would gracefully catch the error and still display the exact correct data ***
