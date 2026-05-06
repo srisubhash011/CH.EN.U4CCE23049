@@ -79,3 +79,45 @@
 ## Real-Time Notifications Mechanism
 For real-time notifications, **Server-Sent Events (SSE)** is the optimal choice since notifications are predominantly one-way (server to client). 
 Alternatively, **WebSockets** can be used if bidirectional communication is anticipated in the future. A lightweight WebSocket server (e.g., Socket.io or native WebSockets in Go) would push events to the client whenever a new notification is generated.
+
+# Stage 2
+
+## Persistent Storage (DB) Suggestion
+**Choice:** PostgreSQL (Relational SQL Database).
+**Reasoning:** Notifications possess a strictly defined schema (User ID, Type, Message, Timestamp, Read Status). PostgreSQL is highly robust, ACID compliant, and offers excellent indexing capabilities (including partial and composite indexes) which are crucial for quickly querying unread notifications or filtering by type.
+
+## DB Schema
+```sql
+CREATE TYPE notification_type AS ENUM ('Event', 'Result', 'Placement');
+
+CREATE TABLE notifications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id INT NOT NULL,
+    type notification_type NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+## Potential Problems with Data Volume Growth
+1. **Slow Queries**: As the table grows to millions of rows, querying unread notifications for a user will become slow due to table scans.
+2. **Storage Costs**: Unbounded growth of notification records consumes significant storage.
+3. **Write Bottlenecks**: Heavy insert operations during bulk notifications (e.g., "Notify All") can lock the table and degrade read performance.
+
+## Solutions
+1. **Indexing**: Add composite indexes on `(student_id, is_read, created_at)` to optimize the most common read queries.
+2. **Archiving/Partitioning**: Partition the table by date (e.g., monthly). Move notifications older than 6 months to a cheaper "cold storage" table or database since they are rarely accessed.
+3. **Caching**: Cache the `unread_count` in Redis to avoid hitting the DB for every page load.
+
+## Queries
+- **Fetch unread notifications for a user**:
+  ```sql
+  SELECT * FROM notifications WHERE student_id = 123 AND is_read = FALSE ORDER BY created_at DESC LIMIT 20;
+  ```
+- **Insert a new notification**:
+  ```sql
+  INSERT INTO notifications (student_id, type, message) VALUES (123, 'Placement', 'New drive scheduled');
+  ```
+
+  
