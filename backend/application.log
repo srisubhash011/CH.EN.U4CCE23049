@@ -1,0 +1,7 @@
+2026-05-06T14:27:53+05:30 [INFO] Starting backend server on port 8080
+2026-05-06T14:41:21+05:30 [INFO] Starting backend server on port 8080
+2026-05-06T14:44:13+05:30 [INFO] Starting backend server on port 8080
+2026-05-06T15:02:23+05:30 [INFO] Received request for All notifications
+2026-05-06T15:02:23+05:30 [INFO] Getting all notifications
+2026-05-06T15:02:23+05:30 [INFO] Fetching notifications from external API
+2026-05-06T15:02:23+05:30 [INFO] Successfully fetched notifications
