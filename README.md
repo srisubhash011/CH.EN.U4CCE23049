@@ -89,14 +89,10 @@ npm start
 
 **The Query Parameters:** In Home.js (Lines 18-21), we dynamically built the URL to include exactly the parameters
 
-    ```
     let url = `http://20.207.122.201/evaluation-service/notifications?limit=10&page=${page}`;
-    ```
     if (type) {
-    ```
-            url += `&notification_type=${type}`;
-    ```
-                }
+         url += `&notification_type=${type}`;
+              }
     
 
 *** Even better, we proactively built a mock-data fallback using the exact JSON values from this screenshot! This ensured that even if that 20.207.122.201 IP address was blocked on your personal Wi-Fi by CORS constraints, the UI would gracefully catch the error and still display the exact correct data ***
